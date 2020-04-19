@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ContactInfo.Models.Contact>
+
+@{
+    ViewBag.Title = "Contacts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contacts</h2>
+@if (!Model.Any())
+{
+    <p>We don't have any contacts yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(contact.FirstName, "Details", "Contacts", new { id = contact.Id }, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
