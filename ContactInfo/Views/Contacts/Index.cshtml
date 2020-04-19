@@ -15,15 +15,27 @@ else
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Contact</th>
+                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var contact in Model)
             {
-                <tr>
-                    <td>@Html.ActionLink(contact.FirstName, "Details", "Contacts", new { id = contact.Id }, null)</td>
-                </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => contact.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => contact.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => contact.Email)</td>
+                <td>@Html.DisplayFor(modelItem => contact.PhoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => contact.Status)</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Contacts", new {id = contact.Id}, null)
+                </td>
+            </tr>
             }
         </tbody>
     </table>
