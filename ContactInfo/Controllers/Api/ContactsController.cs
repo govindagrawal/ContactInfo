@@ -74,6 +74,20 @@ namespace ContactInfo.Controllers.Api
             return Ok(contactDto);
         }
 
+        [HttpPut]
+        [Route("api/contacts/activatedeactivatecontact/{id}")]
+        public IHttpActionResult ActivateDeactivateContact(int id)
+        {
+            var contact = _contactRepository.ActivateDeactivateContact(id);
+
+            if (contact == Constants.NotFound)
+                return NotFound();
+
+            _contactRepository.Complete();
+
+            return Ok();
+        }
+
         [HttpDelete]
         public IHttpActionResult DeleteContact(int id)
         {

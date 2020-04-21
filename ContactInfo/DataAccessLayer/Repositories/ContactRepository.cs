@@ -11,10 +11,14 @@ namespace ContactInfo.DataAccessLayer.Repositories
     {
         IEnumerable<Contact> GetContacts();
         Contact GetContact(int id);
+
         void AddContact(Contact contact);
+
         void EditContact(Contact contact);
+        int ActivateDeactivateContact(int id);
+
         int DeleteContact(int id);
-        void ActivateDeactivateContact(int id);
+
         void Complete();
     }
 
@@ -45,6 +49,20 @@ namespace ContactInfo.DataAccessLayer.Repositories
             DbContext.Entry(contact).State = EntityState.Modified;
         }
 
+        public int ActivateDeactivateContact(int id)
+        {
+            var contact = DbContext.Contacts.Find(id);
+
+            if (contact == null)
+                return Constants.NotFound;
+
+            contact.Status = (contact.Status == Constants.Active) ? Constants.Inactive : Constants.Active;
+
+            DbContext.Entry(contact).State = EntityState.Modified;
+
+            return Constants.ContactStatusChanged;
+        }
+
         public int DeleteContact(int id)
         {
             var contact = DbContext.Contacts.Find(id);
@@ -55,17 +73,6 @@ namespace ContactInfo.DataAccessLayer.Repositories
             DbContext.Contacts.Remove(contact);
 
             return Constants.Deleted;
-        }
-
-        public void ActivateDeactivateContact(int id)
-        {
-            var contact = DbContext.Contacts.Find(id);
-
-            if (contact == null) return;
-
-            contact.Status = (contact.Status == Constants.Active) ? Constants.Inactive : Constants.Active;
-
-            DbContext.Entry(contact).State = EntityState.Modified;
         }
 
         public void Complete()

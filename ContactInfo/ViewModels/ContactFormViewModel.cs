@@ -46,41 +46,5 @@ namespace ContactInfo.ViewModels
         public string Status { get; set; }
 
         public string Title => Id != 0 ? "Edit Contact" : "New Contact";
-
-        public static implicit operator ContactFormViewModel(Contact contact)
-        {
-            return new ContactFormViewModel
-            {
-                Id = contact.Id,
-                FirstName = contact.FirstName,
-                LastName = contact.LastName,
-                Email = contact.Email,
-                PhoneNumber = contact.PhoneNumber,
-                Address = contact.Address,
-                City = contact.City,
-                State = contact.State,
-                Country = contact.Country,
-                PostCode = contact.PostCode,
-                Status = contact.Status
-            };
-        }
-
-        public static implicit operator Contact(ContactFormViewModel viewModel)
-        {
-            return new Contact
-            {
-                Id = viewModel.Id,
-                FirstName = viewModel.FirstName,
-                LastName = viewModel.LastName,
-                Email = viewModel.Email,
-                PhoneNumber = viewModel.PhoneNumber.Value,
-                Address = viewModel.Address,
-                City = viewModel.City,
-                State = viewModel.State,
-                Country = viewModel.Country,
-                PostCode = viewModel.PostCode,
-                Status = viewModel.Status
-            };
-        }
     }
 }
