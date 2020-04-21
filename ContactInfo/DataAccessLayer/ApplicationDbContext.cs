@@ -1,6 +1,6 @@
-﻿using System.Data.Entity;
-using ContactInfo.Models;
+﻿using ContactInfo.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace ContactInfo.DataAccessLayer
 {

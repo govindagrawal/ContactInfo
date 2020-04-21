@@ -1,12 +1,10 @@
-﻿using System;
-using ContactInfo.DataAccessLayer;
+﻿using ContactInfo.DataAccessLayer;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Owin;
-using ContactInfo.Models;
+using System;
 
 namespace ContactInfo
 {

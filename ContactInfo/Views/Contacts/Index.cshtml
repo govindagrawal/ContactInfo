@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ContactInfo.Models.Contact>
+﻿@using System.Runtime.Remoting
+@model IEnumerable<ContactInfo.Models.Contact>
 
 @{
     ViewBag.Title = "Contacts";
@@ -6,6 +7,11 @@
 }
 
 <h2>Contacts</h2>
+
+<p>
+    @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary" })
+</p>
+
 @if (!Model.Any())
 {
     <p>We don't have any contacts yet.</p>
@@ -26,16 +32,19 @@ else
         <tbody>
             @foreach (var contact in Model)
             {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => contact.FirstName)</td>
-                <td>@Html.DisplayFor(modelItem => contact.LastName)</td>
-                <td>@Html.DisplayFor(modelItem => contact.Email)</td>
-                <td>@Html.DisplayFor(modelItem => contact.PhoneNumber)</td>
-                <td>@Html.DisplayFor(modelItem => contact.Status)</td>
-                <td>
-                    @Html.ActionLink("Details", "Details", "Contacts", new {id = contact.Id}, null)
-                </td>
-            </tr>
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => contact.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => contact.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => contact.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => contact.PhoneNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => contact.Status)</td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Contacts", new { id = contact.Id }, null)
+                        @Html.ActionLink("Edit", "Edit", "Contacts", new { id = contact.Id }, null)
+                        @Html.ActionLink("Delete", "Delete", "Contacts", new { id = contact.Id }, null)
+                        @Html.ActionLink(contact.Status == "Active" ? "Deactivate" : "Activate", "ActivateDeactivate", "Contacts", new { id = contact.Id }, null)
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

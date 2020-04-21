@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ContactInfo.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using ContactInfo.Models;
 using Unity;
 
 namespace ContactInfo.DataAccessLayer.Repositories
@@ -14,9 +13,9 @@ namespace ContactInfo.DataAccessLayer.Repositories
         Contact GetContact(int id);
         void AddContact(Contact contact);
         void EditContact(Contact contact);
-        void DeleteContact(int id);
+        int DeleteContact(int id);
         void ActivateDeactivateContact(int id);
-        int Complete();
+        void Complete();
     }
 
     public class ContactRepository : IContactRepository
@@ -46,12 +45,16 @@ namespace ContactInfo.DataAccessLayer.Repositories
             DbContext.Entry(contact).State = EntityState.Modified;
         }
 
-        public void DeleteContact(int id)
+        public int DeleteContact(int id)
         {
             var contact = DbContext.Contacts.Find(id);
 
-            if (contact != null)
-                DbContext.Contacts.Remove(contact);
+            if (contact == null)
+                return Constants.NotFound;
+
+            DbContext.Contacts.Remove(contact);
+
+            return Constants.Deleted;
         }
 
         public void ActivateDeactivateContact(int id)
@@ -65,9 +68,9 @@ namespace ContactInfo.DataAccessLayer.Repositories
             DbContext.Entry(contact).State = EntityState.Modified;
         }
 
-        public int Complete()
+        public void Complete()
         {
-            return DbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
