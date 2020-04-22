@@ -1,4 +1,4 @@
-using ContactInfo.DataAccessLayer;
+using ContactInfo.Models;
 
 namespace ContactInfo.Migrations
 {
