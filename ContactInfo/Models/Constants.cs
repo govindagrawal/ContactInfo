@@ -1,6 +1,6 @@
 ﻿namespace ContactInfo.Models
 {
-    public class Constants
+    public static class Constants
     {
         public const string Active = "Active";
         public const string Inactive = "Inactive";

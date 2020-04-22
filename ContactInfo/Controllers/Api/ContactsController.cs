@@ -41,6 +41,7 @@ namespace ContactInfo.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleName.CanManageContacts)]
         public IHttpActionResult CreateContact(ContactDto contactDto)
         {
             if (!ModelState.IsValid)
@@ -57,7 +58,8 @@ namespace ContactInfo.Controllers.Api
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateContact(int id,ContactDto contactDto)
+        [Authorize(Roles = RoleName.CanManageContacts)]
+        public IHttpActionResult UpdateContact(int id, ContactDto contactDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
@@ -76,6 +78,7 @@ namespace ContactInfo.Controllers.Api
 
         [HttpPut]
         [Route("api/contacts/activatedeactivatecontact/{id}")]
+        [Authorize(Roles = RoleName.CanManageContacts)]
         public IHttpActionResult ActivateDeactivateContact(int id)
         {
             var contact = _contactRepository.ActivateDeactivateContact(id);
@@ -89,6 +92,7 @@ namespace ContactInfo.Controllers.Api
         }
 
         [HttpDelete]
+        [Authorize(Roles = RoleName.CanManageContacts)]
         public IHttpActionResult DeleteContact(int id)
         {
             var contact = _contactRepository.DeleteContact(id);

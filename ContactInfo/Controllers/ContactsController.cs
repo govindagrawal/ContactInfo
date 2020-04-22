@@ -2,7 +2,6 @@
 using ContactInfo.DataAccessLayer.Repositories;
 using ContactInfo.Models;
 using ContactInfo.ViewModels;
-using System;
 using System.Web.Mvc;
 
 namespace ContactInfo.Controllers
@@ -18,7 +17,7 @@ namespace ContactInfo.Controllers
 
         public ViewResult Index()
         {
-            return View();
+            return View(User.IsInRole(RoleName.CanManageContacts) ? "ContactList" : "ReadOnlyContactList");
         }
 
         public ActionResult Details(int id)
@@ -28,15 +27,17 @@ namespace ContactInfo.Controllers
             if (contact == null)
                 return HttpNotFound();
 
-            return View(contact);
+            return User.IsInRole(RoleName.CanManageContacts) ? View(contact) : View("ReadOnlyDetails", contact);
         }
 
+        [Authorize(Roles = RoleName.CanManageContacts)]
         public ActionResult New()
         {
             var viewModel = new ContactFormViewModel();
             return View("ContactForm", viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageContacts)]
         public ActionResult Edit(int id)
         {
             var contact = _contactRepository.GetContact(id);
@@ -47,6 +48,7 @@ namespace ContactInfo.Controllers
             return View("ContactForm", Mapper.Map<ContactFormViewModel>(contact));
         }
 
+        [Authorize(Roles = RoleName.CanManageContacts)]
         public ActionResult ActivateDeactivate(int id)
         {
             var contact = _contactRepository.ActivateDeactivateContact(id);
@@ -56,11 +58,12 @@ namespace ContactInfo.Controllers
 
             _contactRepository.Complete();
 
-            return RedirectToRoute(new {Controller = "Contacts", Action = "Details", Id = id});
+            return RedirectToRoute(new { Controller = "Contacts", Action = "Details", Id = id });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageContacts)]
         public ActionResult Save(ContactFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
