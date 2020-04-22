@@ -60,6 +60,12 @@
 <br/>
 
 <p>
+    @Html.ActionLink(Model.Status == "Active" ? "Deactivate" : "Activate", "ActivateDeactivate", "Contacts", new { id = Model.Id }, null)
+</p>
+
+<br/>
+
+<p>
     @Html.ActionLink("Edit", "Edit", "Contacts", new { id = Model.Id }, null) |
     @Html.ActionLink("Back to Contacts", "Index", "Contacts")
 </p>

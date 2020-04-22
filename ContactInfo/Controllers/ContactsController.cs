@@ -18,8 +18,7 @@ namespace ContactInfo.Controllers
 
         public ViewResult Index()
         {
-            var contacts = _contactRepository.GetContacts();
-            return View(contacts);
+            return View();
         }
 
         public ActionResult Details(int id)
@@ -50,12 +49,14 @@ namespace ContactInfo.Controllers
 
         public ActionResult ActivateDeactivate(int id)
         {
-            throw new NotImplementedException();
-        }
+            var contact = _contactRepository.ActivateDeactivateContact(id);
 
-        public ActionResult Delete(int id)
-        {
-            throw new NotImplementedException();
+            if (contact == Constants.NotFound)
+                return HttpNotFound();
+
+            _contactRepository.Complete();
+
+            return RedirectToRoute(new {Controller = "Contacts", Action = "Details", Id = id});
         }
 
         [HttpPost]

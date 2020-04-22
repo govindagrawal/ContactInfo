@@ -1,50 +1,33 @@
-﻿@model IEnumerable<ContactInfo.Models.Contact>
-
-@{
+﻿@{
     ViewBag.Title = "Contacts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Contacts</h2>
 
+<br/>
+
 <p>
     @Html.ActionLink("New Contact", "New", "Contacts", null, new { @class = "btn btn-primary" })
 </p>
 
-@if (!Model.Any())
+<br/>
+
+<table id="contacts" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email Address</th>
+            <th>Phone Number</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section scripts
 {
-    <p>We don't have any contacts yet.</p>
-}
-else
-{
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-                <th>@Html.DisplayNameFor(model => model.LastName)</th>
-                <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
-                <th>@Html.DisplayNameFor(model => model.Status)</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var contact in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => contact.FirstName)</td>
-                    <td>@Html.DisplayFor(modelItem => contact.LastName)</td>
-                    <td>@Html.DisplayFor(modelItem => contact.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => contact.PhoneNumber)</td>
-                    <td>@Html.DisplayFor(modelItem => contact.Status)</td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", "Contacts", new { id = contact.Id }, null)
-                        @Html.ActionLink("Edit", "Edit", "Contacts", new { id = contact.Id }, null)
-                        @Html.ActionLink("Delete", "Delete", "Contacts", new { id = contact.Id }, null)
-                        @Html.ActionLink(contact.Status == "Active" ? "Deactivate" : "Activate", "ActivateDeactivate", "Contacts", new { id = contact.Id }, null)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <script src="@Url.Content("~/Scripts/Contacts/index.js")"></script>
 }
