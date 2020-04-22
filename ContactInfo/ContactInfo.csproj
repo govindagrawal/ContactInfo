@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202004191147292_PopulateInitialDataInContactsTable.Designer.cs">
       <DependentUpon>202004191147292_PopulateInitialDataInContactsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004221848160_SeedUsers.cs" />
+    <Compile Include="Migrations\202004221848160_SeedUsers.Designer.cs">
+      <DependentUpon>202004221848160_SeedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Constants.cs" />
@@ -490,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004191147292_PopulateInitialDataInContactsTable.resx">
       <DependentUpon>202004191147292_PopulateInitialDataInContactsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004221848160_SeedUsers.resx">
+      <DependentUpon>202004221848160_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
