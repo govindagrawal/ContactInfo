@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#contacts").DataTable({
+    var table = $("#contacts").DataTable({
         ajax: {
             url: "/api/contacts",
             dataSrc: ""
@@ -43,7 +43,7 @@
                     url: "/api/contacts/" + deleteButton.attr("data-contact-id"),
                     method: "DELETE",
                     success: function () {
-                        deleteButton.parents("tr").remove();
+                        table.row(deleteButton.parents("tr")).remove().draw();
                     }
                 });
             }
