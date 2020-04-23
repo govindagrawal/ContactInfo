@@ -31,3 +31,12 @@ textarea {
 .input-validation-error {
     border: 2px solid #18bc9c;
 }
+
+#contactDetails th {
+    width: 150px;
+}
+
+.js-toggleStatus {
+    padding: 0;
+    border: 0;
+}
