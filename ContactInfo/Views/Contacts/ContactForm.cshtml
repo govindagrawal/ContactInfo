@@ -1,17 +1,13 @@
 ﻿@model ContactInfo.ViewModels.ContactFormViewModel
 
 @{
-    /**/
-
     ViewBag.Title = Model.Title;
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@Model.Title</h2>
 
 @using (Html.BeginForm("Save", "Contacts"))
 {
-    @Html.ValidationSummary(true, "Please fix the following errors.")
     <div class="row">
         <div class="form-group col-md-4">
             @Html.LabelFor(m => m.FirstName)
@@ -26,7 +22,6 @@
     </div>
     <br />
     <div class="row">
-
         <div class="form-group col-md-4">
             @Html.LabelFor(m => m.Email)
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })

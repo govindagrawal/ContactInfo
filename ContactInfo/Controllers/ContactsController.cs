@@ -22,12 +22,12 @@ namespace ContactInfo.Controllers
 
         public ActionResult Details(int id)
         {
-            var contact = _contactRepository.GetContact(id);
+            var contactId = new ContactId
+            {
+                Id = id
+            };
 
-            if (contact == null)
-                return HttpNotFound();
-
-            return User.IsInRole(RoleName.CanManageContacts) ? View(contact) : View("ReadOnlyDetails", contact);
+            return User.IsInRole(RoleName.CanManageContacts) ? View(contactId) : View("ReadOnlyDetails", contactId);
         }
 
         [Authorize(Roles = RoleName.CanManageContacts)]
@@ -46,19 +46,6 @@ namespace ContactInfo.Controllers
                 return HttpNotFound();
 
             return View("ContactForm", Mapper.Map<ContactFormViewModel>(contact));
-        }
-
-        [Authorize(Roles = RoleName.CanManageContacts)]
-        public ActionResult ActivateDeactivate(int id)
-        {
-            var contact = _contactRepository.ActivateDeactivateContact(id);
-
-            if (contact == Constants.NotFound)
-                return HttpNotFound();
-
-            _contactRepository.Complete();
-
-            return RedirectToRoute(new { Controller = "Contacts", Action = "Details", Id = id });
         }
 
         [HttpPost]
