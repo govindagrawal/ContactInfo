@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ContactInfo.DataAccessLayer.Repositories;
+using ContactInfo.DataAccessLayer;
 using ContactInfo.Dtos;
 using ContactInfo.Models;
 using System;
@@ -11,17 +11,17 @@ namespace ContactInfo.Controllers.Api
 {
     public class ContactsController : ApiController
     {
-        private readonly IContactRepository _contactRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ContactsController(IContactRepository contactRepository)
+        public ContactsController(IUnitOfWork unitOfWork)
         {
-            _contactRepository = contactRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public IHttpActionResult GetContacts()
         {
-            var contacts = _contactRepository.GetContacts();
+            var contacts = _unitOfWork.Contacts.GetContacts();
 
             if (contacts == null || !contacts.Any())
                 return NotFound();
@@ -32,7 +32,7 @@ namespace ContactInfo.Controllers.Api
         [HttpGet]
         public IHttpActionResult GetContact(int id)
         {
-            var contact = _contactRepository.GetContact(id);
+            var contact = _unitOfWork.Contacts.GetContact(id);
 
             if (contact == null)
                 return NotFound();
@@ -49,8 +49,8 @@ namespace ContactInfo.Controllers.Api
 
             var contact = Mapper.Map<Contact>(contactDto);
 
-            _contactRepository.AddContact(contact);
-            _contactRepository.Complete();
+            _unitOfWork.Contacts.AddContact(contact);
+            _unitOfWork.Complete();
 
             contactDto.Id = contact.Id;
 
@@ -64,14 +64,14 @@ namespace ContactInfo.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
 
-            var contact = _contactRepository.GetContact(id);
+            var contact = _unitOfWork.Contacts.GetContact(id);
 
             if (contact == null)
                 return NotFound();
 
-            _contactRepository.EditContact(Mapper.Map(contactDto, contact));
+            _unitOfWork.Contacts.EditContact(Mapper.Map(contactDto, contact));
 
-            _contactRepository.Complete();
+            _unitOfWork.Complete();
 
             return Ok(contactDto);
         }
@@ -81,12 +81,12 @@ namespace ContactInfo.Controllers.Api
         [Authorize(Roles = RoleName.CanManageContacts)]
         public IHttpActionResult ActivateDeactivateContact(int id)
         {
-            var contact = _contactRepository.ActivateDeactivateContact(id);
+            var contact = _unitOfWork.Contacts.ActivateDeactivateContact(id);
 
             if (contact == Constants.NotFound)
                 return NotFound();
 
-            _contactRepository.Complete();
+            _unitOfWork.Complete();
 
             return Ok();
         }
@@ -95,12 +95,12 @@ namespace ContactInfo.Controllers.Api
         [Authorize(Roles = RoleName.CanManageContacts)]
         public IHttpActionResult DeleteContact(int id)
         {
-            var contact = _contactRepository.DeleteContact(id);
+            var contact = _unitOfWork.Contacts.DeleteContact(id);
 
             if (contact == Constants.NotFound)
                 return NotFound();
 
-            _contactRepository.Complete();
+            _unitOfWork.Complete();
 
             return Ok();
         }

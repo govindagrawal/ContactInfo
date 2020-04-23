@@ -1,13 +1,11 @@
 ﻿using ContactInfo.Models;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Unity;
 
 namespace ContactInfo.DataAccessLayer.Repositories
 {
-    public interface IContactRepository : IDisposable
+    public interface IContactRepository
     {
         IEnumerable<Contact> GetContacts();
         Contact GetContact(int id);
@@ -18,83 +16,61 @@ namespace ContactInfo.DataAccessLayer.Repositories
         int ActivateDeactivateContact(int id);
 
         int DeleteContact(int id);
-
-        void Complete();
     }
 
     public class ContactRepository : IContactRepository
     {
-        [Dependency]
-        public ApplicationDbContext DbContext { get; set; }
+        private readonly ApplicationDbContext _dbContext;
 
-        private bool _disposed = false;
+        public ContactRepository(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public IEnumerable<Contact> GetContacts()
         {
-            return DbContext.Contacts.ToList();
+            return _dbContext.Contacts.ToList();
         }
 
         public Contact GetContact(int id)
         {
-            return DbContext.Contacts.Find(id);
+            return _dbContext.Contacts.Find(id);
         }
 
         public void AddContact(Contact contact)
         {
-            DbContext.Contacts.Add(contact);
+            _dbContext.Contacts.Add(contact);
         }
 
         public void EditContact(Contact contact)
         {
-            DbContext.Entry(contact).State = EntityState.Modified;
+            _dbContext.Entry(contact).State = EntityState.Modified;
         }
 
         public int ActivateDeactivateContact(int id)
         {
-            var contact = DbContext.Contacts.Find(id);
+            var contact = _dbContext.Contacts.Find(id);
 
             if (contact == null)
                 return Constants.NotFound;
 
             contact.Status = (contact.Status == Constants.Active) ? Constants.Inactive : Constants.Active;
 
-            DbContext.Entry(contact).State = EntityState.Modified;
+            _dbContext.Entry(contact).State = EntityState.Modified;
 
             return Constants.ContactStatusChanged;
         }
 
         public int DeleteContact(int id)
         {
-            var contact = DbContext.Contacts.Find(id);
+            var contact = _dbContext.Contacts.Find(id);
 
             if (contact == null)
                 return Constants.NotFound;
 
-            DbContext.Contacts.Remove(contact);
+            _dbContext.Contacts.Remove(contact);
 
             return Constants.Deleted;
-        }
-
-        public void Complete()
-        {
-            DbContext.SaveChanges();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                    DbContext.Dispose();
-            }
-
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

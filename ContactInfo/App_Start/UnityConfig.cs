@@ -1,5 +1,5 @@
 using ContactInfo.Controllers;
-using ContactInfo.DataAccessLayer.Repositories;
+using ContactInfo.DataAccessLayer;
 using System.Web.Http;
 using System.Web.Mvc;
 using Unity;
@@ -14,7 +14,7 @@ namespace ContactInfo
         {
             var container = new UnityContainer();
             container.RegisterType<AccountController>(new InjectionConstructor());
-            container.RegisterType<IContactRepository, ContactRepository>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
         }

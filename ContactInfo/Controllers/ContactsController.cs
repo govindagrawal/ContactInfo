@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ContactInfo.DataAccessLayer.Repositories;
+using ContactInfo.DataAccessLayer;
 using ContactInfo.Models;
 using ContactInfo.ViewModels;
 using System.Web.Mvc;
@@ -8,11 +8,11 @@ namespace ContactInfo.Controllers
 {
     public class ContactsController : Controller
     {
-        private readonly IContactRepository _contactRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ContactsController(IContactRepository contactRepository)
+        public ContactsController(IUnitOfWork unitOfWork)
         {
-            _contactRepository = contactRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public ViewResult Index()
@@ -40,7 +40,7 @@ namespace ContactInfo.Controllers
         [Authorize(Roles = RoleName.CanManageContacts)]
         public ActionResult Edit(int id)
         {
-            var contact = _contactRepository.GetContact(id);
+            var contact = _unitOfWork.Contacts.GetContact(id);
 
             if (contact == null)
                 return HttpNotFound();
@@ -61,13 +61,13 @@ namespace ContactInfo.Controllers
             if (viewModel.Id == 0)
             {
                 contact.Status = Constants.Active;
-                _contactRepository.AddContact(contact);
+                _unitOfWork.Contacts.AddContact(contact);
             }
             else
             {
-                _contactRepository.EditContact(contact);
+                _unitOfWork.Contacts.EditContact(contact);
             }
-            _contactRepository.Complete();
+            _unitOfWork.Complete();
 
             return RedirectToAction("Index", "Contacts");
         }
