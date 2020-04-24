@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using ContactInfo.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ContactInfo;
-using ContactInfo.Controllers;
+using System.Web.Mvc;
 
 namespace ContactInfo.Tests.Controllers
 {
@@ -16,10 +11,10 @@ namespace ContactInfo.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            var result = controller.Index() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

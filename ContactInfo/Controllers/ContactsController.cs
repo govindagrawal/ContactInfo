@@ -20,7 +20,7 @@ namespace ContactInfo.Controllers
             return View(User.IsInRole(RoleName.CanManageContacts) ? "ContactList" : "ReadOnlyContactList");
         }
 
-        public ActionResult Details(int id)
+        public ViewResult Details(int id)
         {
             var contactId = new ContactId
             {
@@ -31,7 +31,7 @@ namespace ContactInfo.Controllers
         }
 
         [Authorize(Roles = RoleName.CanManageContacts)]
-        public ActionResult New()
+        public ViewResult New()
         {
             var viewModel = new ContactFormViewModel();
             return View("ContactForm", viewModel);
