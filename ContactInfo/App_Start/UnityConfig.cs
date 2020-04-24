@@ -14,6 +14,7 @@ namespace ContactInfo
         {
             var container = new UnityContainer();
             container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
