@@ -1,7 +1,11 @@
 # ContactInfo
-Contact Information Center
+The Contact Information Center
 
-The application is called as "The Contact Information Center". The application performs following Task:
+This application "ContactInfo" is hosted on the "Azure" Cloud and is used to manage the contact details such as name, email, phone number, address, etc.
+
+Website: https://contactinfo.azurewebsites.net
+
+ContactInfo can perform the following Tasks:
 
 01. User can Resgister and Login.
 02. Login is Mandatory else only Home page is shown.
@@ -20,15 +24,15 @@ The application is called as "The Contact Information Center". The application p
 Credentials:
 
 01. Admin
-      a. Email: admin@contactinfo.com
-      b. Password: Admin@123
+      Email: admin@contactinfo.com
+      Password: Admin@123
 
 02. Guest
-      a. Email: guest@contactinfo.com
-      b. Password: Guest@123
+      Email: guest@contactinfo.com
+      Password: Guest@123
 
 
-Following are the technology / features used w.r.t. this application:
+Following are the technologies / features used w.r.t. this application:
 
 01. Built using ASP.Net MVC5 and ASP.Net WebApi.
 02. Used Entity Framework Code First approach as the persistence framework.
@@ -36,9 +40,9 @@ Following are the technology / features used w.r.t. this application:
 04. Used Fluent Api for database validations and Data Annotations for client side validations.
 05. Used Unity Container to achieve the Dependency Injection (DI) priciple.
 06. Used AutoMapper to map the Domain Model with the Dtos and the ViewModels.
-07. Tested the APIs using Postman.
+07. Tested the APIs using the Postman.
 08. Used WebApi 2 feature "IHttpActionResult" as the Api methods return type.
-09. Used jQuery AJAX for calling few WebApi methods on the view.
+09. Used jQuery AJAX for calling few of the WebApi methods on the view.
 10. Used jQuery Datatables to display the contacts list.
 11. Drawn the tables using jQuery as well as Razor View HTML.
 12. Used toastr to display a toast notification.
@@ -46,5 +50,6 @@ Following are the technology / features used w.r.t. this application:
 14. Used both Attribute as well as Conventional Routing.
 15. Implemented Authentication and Authorization.
 16. Implemented Custom Error Handling and 404 error.
-17. Created Unit Tests using MSTest.
+17. Created Unit Tests using MSTest. Used Moq feature.
 18. For Deployment, used the Web Deploy feature and hosted the application using Azure.
+19. Implemented CI/CD (Continous Integration / Continous Development) between GitHub and Azure.
