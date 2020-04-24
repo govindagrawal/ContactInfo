@@ -33,16 +33,16 @@
 
                 var name = $("<h2 />").html(data.firstName + " " + data.lastName);
 
-                var toggleStatusButton = $("<h4 />").append($("<button />")
-                    .addClass("btn-link js-toggleStatus")
+                var toggleStatusButton = $("<button />")
+                    .addClass("btn btn-primary js-toggleStatus")
                     .attr("id", "toggleStatus")
                     .eq(0)
-                    .html(data.status === statusActive ? buttonDeactivate : buttonActivate)
-                );
+                    .html(data.status === statusActive ? buttonDeactivate : buttonActivate);
 
                 $("#details").append(
                     name,
                     table,
+                    $("<br />"),
                     toggleStatusButton
                 );
             }

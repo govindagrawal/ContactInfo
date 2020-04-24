@@ -26,6 +26,7 @@ namespace ContactInfo
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-flatly.css",
+                      "~/Content/bootstrap-theme-contactinfo.css",
                       "~/Content/DataTables/css/datatables.bootstrap.css",
                       "~/Content/toastr.css",
                       "~/Content/site.css"));
