@@ -3,7 +3,7 @@ using ContactInfo.Dtos;
 using ContactInfo.Models;
 using ContactInfo.ViewModels;
 
-namespace ContactInfo.App_Start
+namespace ContactInfo
 {
     public class MappingProfile : Profile
     {

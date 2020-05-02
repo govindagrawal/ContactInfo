@@ -24,7 +24,7 @@ namespace ContactInfo.ViewModels
         [Required]
         [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Phone Number.")]
         [Display(Name = "Phone Number")]
-        public int? PhoneNumber { get; set; }
+        public long? PhoneNumber { get; set; }
 
         [StringLength(500, ErrorMessage = "Address cannot be more than 500 characters")]
         public string Address { get; set; }

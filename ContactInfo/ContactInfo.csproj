@@ -231,6 +231,10 @@
     <Compile Include="Migrations\202004221848160_SeedUsers.Designer.cs">
       <DependentUpon>202004221848160_SeedUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005021959081_ChangePhoneNumberTypeFromIntToLong.cs" />
+    <Compile Include="Migrations\202005021959081_ChangePhoneNumberTypeFromIntToLong.designer.cs">
+      <DependentUpon>202005021959081_ChangePhoneNumberTypeFromIntToLong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContactId.cs" />
     <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -542,6 +546,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004221848160_SeedUsers.resx">
       <DependentUpon>202004221848160_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005021959081_ChangePhoneNumberTypeFromIntToLong.resx">
+      <DependentUpon>202005021959081_ChangePhoneNumberTypeFromIntToLong.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
