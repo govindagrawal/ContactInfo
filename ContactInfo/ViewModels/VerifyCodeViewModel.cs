@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ContactInfo.Models
+namespace ContactInfo.ViewModels
 {
     public class VerifyCodeViewModel
     {

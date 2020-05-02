@@ -1,5 +1,4 @@
-﻿using ContactInfo.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ContactInfo.ViewModels
 {

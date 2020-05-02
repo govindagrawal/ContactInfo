@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ContactInfo.Models
+namespace ContactInfo.ViewModels
 {
     public class SendCodeViewModel
     {

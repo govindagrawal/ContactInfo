@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ContactInfo.Models
+namespace ContactInfo.ViewModels
 {
-    public class RegisterViewModel
+    public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]
@@ -19,5 +19,7 @@ namespace ContactInfo.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string Code { get; set; }
     }
 }

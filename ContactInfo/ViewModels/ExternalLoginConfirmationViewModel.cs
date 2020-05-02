@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ContactInfo.Models
+namespace ContactInfo.ViewModels
 {
-    public class ForgotPasswordViewModel
+    public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
